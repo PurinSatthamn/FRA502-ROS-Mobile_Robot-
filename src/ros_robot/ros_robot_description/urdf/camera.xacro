@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="camera">
+
+    <!-- Included the Properties file -->
+    <xacro:include filename="$(find ros_robot_description)/urdf/properties.xacro"/>
+
+    <!-- Defined Link & Joint of the Camera in Xacro:Macro   -->
+    <xacro:macro name="camera" params="name">
+        <joint name="camera_joint" type="fixed">
+            <!-- Default of the xyz axis -->
+            <axis xyz="0 1 0" />
+            <!-- Position of the Camera you want (Transfrom from the Parent Link) -->
+            <origin xyz="0.5 0 0.125" rpy="0 0 0"/>
+            <parent link="link_chassis"/>
+            <child link="link_camera"/>
+        </joint>
+
+        <link name="link_camera">
+            <!-- Defined Collision in simulation -->
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${camera_link} ${camera_link} ${camera_link}"/>
+                </geometry>
+            </collision>
+            <!-- Defined visual(what we see in simulation) -->
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${camera_link} ${camera_link} ${camera_link}"/>
+                </geometry>
+            </visual>
+            <!-- Inertial of the camera -->
+            <inertial>
+                <mass value="1e-5" />
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+            </inertial>
+        </link>
+    </xacro:macro>
+</robot>

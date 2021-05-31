@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Properties that usually used -->
+
+    <!-- Distance of the Floor to Chassis -->
+    <xacro:property name="floortobase" value ="0.2"/>
+    <!-- Radius of the wheel in metres -->
+    <xacro:property name="wheel_radius" value ="0.2"/>
+    <!-- Width of the wheel in metres -->
+    <xacro:property name="wheel_length" value ="0.06"/>
+    <!-- u maximum -->
+    <xacro:property name="u_max" value ="100.0"/>
+    <!-- v maximum  -->
+    <xacro:property name="v_max" value ="100.0"/>
+    <!-- Mass of the Chassis -->
+    <xacro:property name="mass_chassis" value ="5.0"/>
+    <!-- Mass of the wheel -->
+    <xacro:property name="mass_wheel" value ="0.3"/>
+    <!-- Size of square 'camera' box -->
+    <xacro:property name="camera_link" value="0.05" /> 
+    
+    
+</robot>

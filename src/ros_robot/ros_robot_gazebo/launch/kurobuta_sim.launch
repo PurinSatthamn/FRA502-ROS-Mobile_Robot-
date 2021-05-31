@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Set the pararm for which robot (xacro file) would be spawning -->
+    <param name="robot_description" 
+        command="$(find xacro)/xacro $(find ros_robot_description)/urdf/ros_robot.xacro"/>
+
+    <!-- Send Fake Joint Values -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <!-- <param name="use_gui" value="False"/> -->
+    </node>
+    <!-- Combine Joint Values -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+    <!-- Show in Rviz   -->
+    <node name="rviz" pkg="rviz" type="rviz" args = "-d $(find ros_robot_description)/rviz/kurobuta_sensors.rviz"/>
+    
+    <!-- Uncomment if you want to spawn the robot in empthy world -->
+    <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch"/> -->
+
+    <!-- Spawn the Robot in the custom world -->
+    <!-- You can change the custom world by change the address of the world file -->
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value = "$(find ros_robot_gazebo)/worlds/room.world"/>
+    </include>
+
+    <!-- Spawn the Robot -->
+    <node name="urdf_spawner" pkg = "gazebo_ros" type="spawn_model" output="screen" 
+    args="-urdf -model kurobuta -param robot_description"/>
+
+</launch>

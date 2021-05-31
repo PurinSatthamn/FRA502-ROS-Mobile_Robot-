@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<robot name="kurobuta" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Gather xacro:macro of all components of the robot in this file -->
+
+  <!-- Included every xacro files that will be use to create robot -->
+  <xacro:include filename="$(find ros_robot_description)/urdf/chassis.xacro" />
+  <xacro:include filename="$(find ros_robot_description)/urdf/wheel.xacro" />
+  <xacro:include filename="$(find ros_robot_description)/urdf/camera.xacro" />
+  <xacro:include filename="$(find ros_robot_description)/urdf/lidar.xacro" />
+  <xacro:include filename="$(find ros_robot_description)/urdf/kurobuta.gazebo" />
+
+
+  <xacro:link_chassis name="link_chassis"/>
+  
+
+  <xacro:link_wheel name="link_right_wheel" />
+  <xacro:joint_wheel name="joint_right_wheel" child="link_right_wheel" origin_xyz="0 -0.33 0" />
+
+  <xacro:link_wheel name="link_left_wheel" />
+  <xacro:joint_wheel name="joint_left_wheel" child="link_left_wheel" origin_xyz="0 0.33 0" />
+
+  <xacro:camera name="camera.xacro"/>
+  <xacro:lidar name="lidar.xacro"/>
+
+  
+</robot>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot name="wheel" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Included the Properties & Inertia xacro file -->
+  <xacro:include filename="$(find ros_robot_description)/urdf/inertia.xacro"/>
+  <xacro:include filename="$(find ros_robot_description)/urdf/properties.xacro"/>
+
+  <!-- Defined Link of wheel in Xacro:Macro -->
+  <xacro:macro name="link_wheel" params="name">
+
+    <gazebo>
+      <plugin name= "gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/kurobuta</robotNamespace>
+      </plugin>
+    </gazebo>
+
+    <link name="${name}">
+        <!-- Inertia of the cylinder wheel call from the inertia.xacro -->
+        <xacro:cylinder_inertial radius = "${wheel_radius}" length = "${wheel_length}" mass = "${mass_wheel}">
+        <origin rpy="0.0 1.5707 1.5707" xyz="0.0 0.0 0.0"/>
+        </xacro:cylinder_inertial>
+        <!-- Defined Collision of the wheel in simulation -->
+        <collision name="${name}_collision">
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+          <geometry>
+            <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+          </geometry>
+        </collision>
+        <!-- Defined visual(what we see in simulation) -->
+        <visual name="${name}_visual">
+          <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+          <geometry>
+            <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+          </geometry>
+        </visual>
+    </link>
+  </xacro:macro>
+  
+  <!-- Defined Joint in Xacro:Macro with the param "name, child, origin_xyz(transformation 
+      from parent link)" for seperate left right wheel -->
+  <xacro:macro name="joint_wheel" params="name child origin_xyz">
+    <joint name="${name}" type="continuous">
+      <origin rpy="0 0 0" xyz="${origin_xyz}"/>
+      <child link="${child}"/>
+      <parent link="link_chassis"/>
+      <axis rpy="0 0 0" xyz="0 1 0"/>
+      <limit effort="${u_max}" velocity="${v_max}"/>
+      <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+
+  <!-- Add the Transmission and the Actuators to the wheel -->
+    <transmission name="${name}_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${name}_wheel_motor">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
+
+
+</robot>
+
+

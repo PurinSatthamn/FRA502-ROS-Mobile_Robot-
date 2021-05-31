@@ -1,0 +1,2 @@
+ros_robot/ros_robot_description:ros_robot/ros_robot_gazebo
+-DCATKIN_DEVEL_PREFIX=/home/purin/FRA502_Project_ws/devel -DCMAKE_INSTALL_PREFIX=/home/purin/FRA502_Project_ws/install -G Unix Makefiles

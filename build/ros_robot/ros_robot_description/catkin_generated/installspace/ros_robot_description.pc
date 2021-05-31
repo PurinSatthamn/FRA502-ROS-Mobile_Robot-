@@ -1,0 +1,8 @@
+prefix=/home/purin/FRA502_Project_ws/install
+
+Name: ros_robot_description
+Description: Description of ros_robot_description
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
